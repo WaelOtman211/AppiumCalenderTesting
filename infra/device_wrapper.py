@@ -1,16 +1,24 @@
-import selenium
-from selenium import webdriver
+
+import unittest
 from appium import webdriver
-from infra.base_page import BasePage
-from infra.config_reader import get_config_data
+from appium.webdriver.common.appiumby import AppiumBy
+# Import Appium UiAutomator2 driver for Android platforms (AppiumOptions)
+from appium.options.android import UiAutomator2Options
+from config_reader import *
 
+class deviceWrapper():
 
-class BrowserWrapper(BasePage):
     def __init__(self):
-        super().__init__(self.get_driver())
-        desired_caps = get_config_data()
-        self.driver = webdriver.Remote('http://localhost:4723/wd/hub', desired_caps)
-        self.driver.implicitly_wait(60)
+        capabilities = get_config_data()
+
+        appium_server_url = 'http://localhost:4723'
+
+        # Converts capabilities to AppiumOptions instance
+        capabilities_options = UiAutomator2Options().load_capabilities(capabilities)
+        self.driver = webdriver.Remote(
+            command_executor=appium_server_url,
+            options=capabilities_options
+        )
 
     def get_driver(self):
         return self.driver
