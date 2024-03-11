@@ -1,6 +1,6 @@
 import unittest
 
-from infra.device_wraber import BrowserWrapper
+from infra.device_wrapper import BrowserWrapper
 from logic.calenderSourcePage import CalendarPage
 from logic.eventPage import EventPage
 
