@@ -1,84 +1,58 @@
-import time
 
-from selenium.webdriver.support.wait import WebDriverWait
 from appium.webdriver.common.appiumby import AppiumBy
 
 
+class NewEventPage:
+    LOCATORS = {
+        "EVENT_NAME": (AppiumBy.ID, "com.claudivan.taskagenda:id/etTitulo"),
+        "SAVE_EVENT": (AppiumBy.ID, "com.claudivan.taskagenda:id/item_salvar"),
+        "TIME_FIELD": (AppiumBy.ID, "com.claudivan.taskagenda:id/btHora"),
+        "TASK_TYPE": (AppiumBy.ID, "com.claudivan.taskagenda:id/tvTipo"),
+        "DESCRIPTION": (AppiumBy.ID, "com.claudivan.taskagenda:id/etDescricao"),
+        "ADD_REMINDER": (AppiumBy.ID, "com.claudivan.taskagenda:id/btAdicionarNotificacao"),
+        "IMPORTANT_EVENT": (AppiumBy.XPATH, "//android.widget.ListView[@resource-id='android:id/select_dialog_listview']/android.widget.RelativeLayout[1]"),
+        "TASK_EVENT": (AppiumBy.XPATH, "//android.widget.ListView[@resource-id='android:id/select_dialog_listview']/android.widget.RelativeLayout[2]"),
+        "NOT_FORGET_EVENT": (AppiumBy.XPATH, "//android.widget.ListView[@resource-id='android:id/select_dialog_listview']/android.widget.RelativeLayout[3]"),
+        "DATE_FIELD": (AppiumBy.XPATH, "//android.widget.TextView[@resource-id='com.claudivan.taskagenda:id/btData']"),
+        "DATE_YEAR": (AppiumBy.ID, "android:id/date_picker_header_year")
+    }
 
-class NewEventPage():
-    EVENT_NAME= "com.claudivan.taskagenda:id/etTitulo"
-    SAVE_EVENT = "com.claudivan.taskagenda:id/item_salvar"
-    TIME_FIELD = "com.claudivan.taskagenda:id/btHora"
-    TASK_TYPE = "com.claudivan.taskagenda:id/tvTipo"
-    DESCRIPTION = "com.claudivan.taskagenda:id/etDescricao"
-    ADD_REMINDER = "com.claudivan.taskagenda:id/btAdicionarNotificacao"
-    IMPORTANT_EVENT = "//android.widget.ListView[@resource-id='android:id/select_dialog_listview']/android.widget.RelativeLayout[1]"
-    TASK_EVENT = "//android.widget.ListView[@resource-id='android:id/select_dialog_listview']/android.widget.RelativeLayout[2]"
-    NOT_FORGET_EVENT="//android.widget.ListView[@resource-id='android:id/select_dialog_listview']/android.widget.RelativeLayout[3]"
-    DATE_FIELD ="//android.widget.TextView[@resource-id='com.claudivan.taskagenda:id/btData']"
-    DATE_YEAR = "android:id/date_picker_header_year"
+    def __init__(self, driver):
+        self.driver = driver
+        self.initialize_elements()
 
+    def initialize_elements(self):
+        self.elements = {name: self.driver.find_element(*locator) for name, locator in self.LOCATORS.items()}
 
+    def click_add_reminder_button(self):
+        self.elements["ADD_REMINDER"].click()
 
+    def enter_description(self, text):
+        self.elements["DESCRIPTION"].send_keys(text)
 
+    def enter_event_name(self, text):
+        self.elements["EVENT_NAME"].send_keys(text)
 
-    def __init__(self,driver):
-        self.driver=driver
-        self.init_elements()
+    def click_time_field(self):
+        self.elements["TIME_FIELD"].click()
 
-    def init_elements(self):
-        self.event_name = self.driver.find_element(by=AppiumBy.ID, value=self.EVENT_NAME)
-        self.save_event = self.driver.find_element(by=AppiumBy.ID, value=self.SAVE_EVENT)
-        self.time_field = self.driver.find_element(by=AppiumBy.ID, value=self.TIME_FIELD)
-        self.task_type = self.driver.find_element(by=AppiumBy.ID, value=self.TASK_TYPE)
-        self.description =self.driver.find_element(by=AppiumBy.ID, value=self.DESCRIPTION)
-        self.add_reminder =self.driver.find_element(by=AppiumBy.ID, value=self.ADD_REMINDER)
-        self.date_field =self.driver.find_element(by=AppiumBy.XPATH, value=self.DATE_FIELD)
-
-
-
-    def click_add_event_button(self):
-        self.add_event_button.click()
-
-
-    def init_time_fiels(self):
-        self.time_field = self.driver.find_element(by=AppiumBy.ID, value=self.TIME_FIELD)
-
-    def fill_description(self,text):
-        self.description.send_keys(text)
-    def fill_name(self,text):
-        self.event_name.send_keys(text)
-    def fill_date(self,date):
-        pass
-    def click_time(self):
-        self.time_field.click()
-
-
-    def choose_year(self,year):
-        pass
-
-    def choose_event_type(self,type):
-        #type should be "Important", "Task" or "Not forgot"
-        if type.lower() != 'not forgot' and type.lower() != 'important' and type.lower() != 'task':
-            raise ValueError('invalid event type')
-        if type.lower() == 'not forgot':
-            self.event_type = self.driver.find_element(by=AppiumBy.XPATH, value=self.NOT_FORGET_EVENT).click()
-        if type.lower() == 'important':
-            self.event_type = self.driver.find_element(by=AppiumBy.XPATH, value=self.IMPORTANT_EVENT).click()
-        if type.lower() == 'task':
-            self.event_type = self.driver.find_element(by=AppiumBy.XPATH, value=self.TASK_EVENT).click()
-
-
-
+    def select_event_type(self, event_type):
+        element = self.LOCATORS.get(event_type.upper() + "_EVENT")
+        if not element:
+            raise ValueError("Invalid event type")
+        self.driver.find_element(*element).click()
 
     def get_time_field_text(self):
-        return self.time_field.text
-
+        return self.elements["TIME_FIELD"].text
 
     def get_date_field_text(self):
-        return self.date_field.text
+        return self.elements["DATE_FIELD"].text
 
+    def choose_year_for_date(self, year):
+        pass
 
+    def enter_date(self, date):
+        pass
 
-
-
+    def initialize_time_field(self):
+        self.elements["TIME_FIELD"] = self.driver.find_element(*self.LOCATORS["TIME_FIELD"])

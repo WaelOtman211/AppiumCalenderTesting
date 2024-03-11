@@ -3,7 +3,6 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from appium.webdriver.common.appiumby import AppiumBy
 
-from logic.page_of_calender import calendarPage
 from logic.page_of_new_event import NewEventPage
 
 
@@ -20,7 +19,7 @@ class WeekPage():
         time.sleep(1)
         self.add_event_button = self.driver.find_element(by=AppiumBy.ID, value=self.ADD_EVENT)
         self.calendar_button = self.driver.find_element(by=AppiumBy.XPATH, value=self.CALENDER_BUTTON)
-
+        time.sleep(1)
 
 
     def click_add_event_button(self):
@@ -33,16 +32,6 @@ class WeekPage():
         time.sleep(1)
         self.driver.find_element(by=AppiumBy.XPATH, value=f"//android.widget.TextView[@resource-id='android:id/text1' and @text='{text}']").click()
 
-    def add_new_event(self,event_name,hour,minute,type,description):
-        self.event_page = NewEventPage(self.driver)
-        self.event_page.create_event(event_name,hour,minute,type,description)
-
-
-    def go_to_calender_page(self):
-        self.calendar_button.click()
-
-        self.calendar_page = calendarPage(self.driver)
-        return self.calendar_page
     def init_pending_event(self):
         self.pending_event=self.driver.find_element(by=AppiumBy.ID, value=self.PENDING_EVENT)
 
