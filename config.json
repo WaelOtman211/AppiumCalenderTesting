@@ -1,9 +1,8 @@
 {
-"platformName":"Android",
-"deviceName":"R5CR12HGYMY",
-"platformVersion":"14.0",
-"automationName":"UiAutomator2",
-"appPackage":"com.claudivan.taskagenda",
-"appActivity":".Activities.MainActivity"
-
+  "platformName": "Android",
+  "platformVersion": "11",
+  "deviceName": "emulator-5554",
+  "appPackage": "com.claudivan.taskagenda",
+  "appActivity": ".Activities.MainActivity",
+  "automationName": "UiAutomator2"
 }
