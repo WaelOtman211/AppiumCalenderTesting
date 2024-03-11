@@ -2,13 +2,11 @@ import time
 import unittest
 # Import Appium UiAutomator2 driver for Android platforms (AppiumOptions)
 from appium.options.android import UiAutomator2Options
-from Infra import *
-from Infra.device_wrapper import deviceWrapper
-from Logic.new_event_page import newEventPage
+from infra import *
+from infra.device_wrapper import deviceWrapper
+from logic.new_event_page import newEventPage
 from utils import *
-
-from Logic.week_page import weekPage
-
+from logic.week_page import weekPage
 
 
 class newEventTest(unittest.TestCase):
@@ -18,7 +16,7 @@ class newEventTest(unittest.TestCase):
         time.sleep(2)
         self.week_page = weekPage(self.driver)
 
-    def test_datetime_today_in_event_pag(self) -> None:
+    def test_datetime_today_in_event_pag(self):
         self.week_page.click_add_event_button()
         self.week_page.choose_add_event_day_element('Today')
         self.event_page = newEventPage(self.driver)

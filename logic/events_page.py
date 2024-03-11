@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from appium.webdriver.common.appiumby import AppiumBy
 
-from Logic.event_detail_page import eventDetailsPage
+from logic.event_detail_page import eventDetailsPage
 
 
 class eventsPage():

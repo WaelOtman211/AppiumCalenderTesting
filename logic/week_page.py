@@ -3,9 +3,9 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from appium.webdriver.common.appiumby import AppiumBy
 
-from Logic.calendar_page import calendarPage
-from Logic.events_page import eventsPage
-from Logic.new_event_page import newEventPage
+from logic.calendar_page import calendarPage
+from logic.events_page import eventsPage
+from logic.new_event_page import newEventPage
 
 
 class weekPage():

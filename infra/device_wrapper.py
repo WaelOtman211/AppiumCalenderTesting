@@ -4,7 +4,8 @@ from appium import webdriver
 from appium.webdriver.common.appiumby import AppiumBy
 # Import Appium UiAutomator2 driver for Android platforms (AppiumOptions)
 from appium.options.android import UiAutomator2Options
-from config_reader import *
+from infra.config_reader import get_config_data
+
 
 class deviceWrapper():
 
