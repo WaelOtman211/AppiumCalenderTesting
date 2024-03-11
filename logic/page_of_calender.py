@@ -3,7 +3,6 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from appium.webdriver.common.appiumby import AppiumBy
 
-from logic.events_page import eventsPage
 
 
 class calendarPage():
@@ -18,8 +17,4 @@ class calendarPage():
         self.pending_event = self.driver.find_element(by=AppiumBy.ID, value=self.PENDING_EVENT)
 
 
-    def go_to_events_list(self):
-        self.pending_event.click()
-        self.events_page = eventsPage(self.driver)
-        return self.events_page
 

@@ -3,10 +3,9 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from appium.webdriver.common.appiumby import AppiumBy
 
-from logic.clock_page import clockPage
 
 
-class newEventPage():
+class NewEventPage():
     EVENT_NAME= "com.claudivan.taskagenda:id/etTitulo"
     SAVE_EVENT = "com.claudivan.taskagenda:id/item_salvar"
     TIME_FIELD = "com.claudivan.taskagenda:id/btHora"
@@ -71,27 +70,6 @@ class newEventPage():
 
 
 
-    def create_event(self,event_name,hour,minute,type,description):
-        self.event_name.send_keys(event_name)
-        self.click_time()
-        time_page = clockPage(self.driver)
-        time_page.fill_time(hour,minute)
-        time.sleep(1)
-        self.task_type.click()
-
-        self.choose_event_type(type)
-        self.description.click()
-        self.fill_description(description)
-        self.save_event.click()
-
-
-    def choose_time(self,hour,minute):
-
-        self.click_time()
-        time_page = clockPage(self.driver)
-        time_page.fill_time(hour,minute)
-        time.sleep(1)
-        self.init_time_fiels()
 
     def get_time_field_text(self):
         return self.time_field.text

@@ -4,10 +4,10 @@ from appium import webdriver
 from appium.webdriver.common.appiumby import AppiumBy
 # Import Appium UiAutomator2 driver for Android platforms (AppiumOptions)
 from appium.options.android import UiAutomator2Options
-from infra.config_reader import get_config_data
+from infra.config_handler import get_config_data
 
 
-class deviceWrapper():
+class DeviceWrapper():
 
     def __init__(self):
         capabilities = get_config_data()

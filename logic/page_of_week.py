@@ -3,12 +3,11 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from appium.webdriver.common.appiumby import AppiumBy
 
-from logic.calendar_page import calendarPage
-from logic.events_page import eventsPage
-from logic.new_event_page import newEventPage
+from logic.page_of_calender import calendarPage
+from logic.page_of_new_event import NewEventPage
 
 
-class weekPage():
+class WeekPage():
     ADD_EVENT= "com.claudivan.taskagenda:id/btNovoEvento"
     CALENDER_BUTTON = "//android.widget.TextView[@text='Calendar']"
     PENDING_EVENT = "com.claudivan.taskagenda:id/btEventosSemana"
@@ -31,15 +30,12 @@ class weekPage():
         self.calendar_button.click()
 
     def choose_add_event_day_element(self,text):
-        #text should be either "Today", "Tomorrow", "Other"
         time.sleep(1)
         self.driver.find_element(by=AppiumBy.XPATH, value=f"//android.widget.TextView[@resource-id='android:id/text1' and @text='{text}']").click()
 
-
     def add_new_event(self,event_name,hour,minute,type,description):
-        self.event_page = newEventPage(self.driver)
+        self.event_page = NewEventPage(self.driver)
         self.event_page.create_event(event_name,hour,minute,type,description)
-
 
 
     def go_to_calender_page(self):
@@ -51,11 +47,6 @@ class weekPage():
         self.pending_event=self.driver.find_element(by=AppiumBy.ID, value=self.PENDING_EVENT)
 
 
-    def go_to_pending_events_list(self):
-        self.init_pending_event()
-        self.pending_event.click()
-        self.events_list_page = eventsPage(self.driver)
-        return self.events_list_page
 
 
 
