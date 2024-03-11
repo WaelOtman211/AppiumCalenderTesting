@@ -1,0 +1,9 @@
+{
+"platformName":"Android",
+"deviceName":"R5CR12HGYMY",
+"platformVersion":"14.0",
+"automationName":"UiAutomator2",
+"appPackage":"com.claudivan.taskagenda",
+"appActivity":".Activities.MainActivity"
+
+}
